@@ -1,10 +1,27 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
+import configDashboardReducer from '../features/configDashboard/configDashboardSlice';
+import logger from 'redux-logger'
+
+export interface DI {
+  hello: () => string
+}
+
+const di: DI = {
+  hello: () => "hello"
+}
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    configDashboard: configDashboardReducer
   },
+  middleware: ( getDefaultMiddleware) => getDefaultMiddleware({
+    thunk: {
+      extraArgument: di,
+    },
+    serializableCheck: false,
+  }).concat(logger),
 });
 
 export type AppDispatch = typeof store.dispatch;
