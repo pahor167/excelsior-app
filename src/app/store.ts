@@ -2,7 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import configDashboardReducer from '../features/configDashboard/configDashboardSlice';
 import wizardReducer from '../features/wizard/wizardSlice';
-import logger from 'redux-logger'
+// import logger from 'redux-logger'
 
 export interface DI {
   hello: () => string
@@ -23,7 +23,7 @@ export const store = configureStore({
       extraArgument: di,
     },
     serializableCheck: false,
-  }).concat(logger),
+  })//.concat(logger),
 });
 
 export type AppDispatch = typeof store.dispatch;

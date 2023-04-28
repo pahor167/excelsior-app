@@ -10,8 +10,7 @@ import DaoStep from './steps/DaoStep';
 import TokenStep from './steps/TokenStep';
 import Review from './steps/Review';
 import { useAppDispatch } from '../../app/hooks';
-import { deployContract } from '../configDashboard/configDashboardSlice';
-import { deployERC20 } from './wizardSlice';
+import { deployERC20, generateAndBuild } from './wizardSlice';
 import Deploy from './steps/Deploy';
 import GovernanceStep from './steps/GovernanceStep';
 
@@ -67,6 +66,7 @@ export default function Wizard() {
     handleNext();
     if (completedSteps() === totalSteps() - 1) {
       dispatch(deployERC20(""))
+      // dispatch(generateAndBuild(0))
     }
   };
 

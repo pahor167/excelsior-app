@@ -2,6 +2,14 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk, DI } from '../../app/store';
 import { deployContractReal, fetchCount } from './wizardApi';
 import { switchNetwork } from '@wagmi/core'
+import { erc20 } from '@openzeppelin/wizard';
+
+// import erc20Sol from "../../@openzeppelin/contracts/token/ERC20/ERC20.sol"
+import {
+  Solc,
+  ImportCallbackFn,
+  ImportCallbackReturnType,
+} from "solc-browserify";
 
 export interface Wizard {
   chainId: number;
@@ -27,6 +35,8 @@ const initialState: Wizard = {
   tokenSymbol: "",
 };
 
+let erc20Contract = ""
+
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
@@ -39,6 +49,57 @@ export const changeNetwork = createAsyncThunk(
       chainId: chainId,
     })
     dispatch(setChainId(network.id))
+  }
+);
+
+const callback: ImportCallbackFn = function (
+  path: string
+): ImportCallbackReturnType {
+  let contract: ImportCallbackReturnType;
+  //   if (path.indexOf("@openzeppelin/contracts/token/ERC20/ERC20.sol") === 0) {
+  //   contract = { contents: erc20Contract };
+  // }
+
+
+  contract = {
+    error: `could not find source contract for ${path}`,
+  };
+
+  return contract;
+};
+
+export const generateAndBuild = createAsyncThunk(
+  'wizard/generateAndBuild',
+  async (chainId: number, { getState, extra, dispatch}) => {
+    const contract = erc20.print();
+
+  //   const res = await fetch(text)
+  // const a = await res.text()
+
+  // const res2 = await fetch(erc20Sol)
+  // erc20Contract = await res2.text()
+try {
+  const compiler = new Solc(() => console.log("Initialized"));
+    const output = await compiler.compile(contract, callback);
+    console.log(output);
+} catch (error) {
+  console.log(error);
+}
+
+    
+    // const versions = await getCompilerVersions() as any
+    // const latestVersion = versions.latestRelease
+    // const latestJsVersion = versions.releases[latestVersion]
+    // console.log("versions", versions);
+    // const res = await solidityCompiler({
+    //   version: `https://binaries.soliditylang.org/bin/${latestJsVersion}`,
+    //   contractBody: contract})
+    // console.log("res", res);
+    // const result = compileStandardWrapper(contract)
+    // const network = await switchNetwork({
+    //   chainId: chainId,
+    // })
+    // dispatch(setChainId(network.id))
   }
 );
 

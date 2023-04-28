@@ -5,13 +5,23 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { Button } from '@mui/material';
+import { useAppDispatch } from '../app/hooks';
+import { generateAndBuild } from '../features/wizard/wizardSlice';
 
 
 function DashboardContent() {
-
+  const dispatch = useAppDispatch();
   return (
     <Grid container spacing={3}>
       {/* Chart */}
+      <Button
+        onClick={() => {
+          dispatch(generateAndBuild(0))
+        }}
+      >
+        Click me
+      </Button>
       <Grid item xs={12} md={8} lg={9}>
         <Paper
           sx={{
