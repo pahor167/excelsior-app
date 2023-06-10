@@ -24,6 +24,7 @@ import {
   } from "react-router-dom";
 import Dashboard from '../Dashboard';
 import Wizard from '../../features/wizard/Wizard';
+import Wallet from '../../features/wallet/Wallet';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { changeNetwork, selectChainId, setChainId } from '../../features/wizard/wizardSlice';
@@ -37,6 +38,10 @@ import { useNetwork } from 'wagmi';
     {
       path: "/wizard",
       element: <Wizard />,
+    },
+    {
+      path: "/wallet",
+      element: <Wallet />,
     },
   ]);
 

@@ -24,11 +24,11 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Wizard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton href='/wallet'>
       <ListItemIcon>
-        <PeopleIcon />
+        <AddIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Wallet" />
     </ListItemButton>
     <ListItemButton>
       <ListItemIcon>

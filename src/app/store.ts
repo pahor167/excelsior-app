@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import configDashboardReducer from '../features/configDashboard/configDashboardSlice';
 import wizardReducer from '../features/wizard/wizardSlice';
+import walletReducer from '../features/wallet/walletSlice';
 // import logger from 'redux-logger'
 
 export interface DI {
@@ -16,7 +17,8 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     configDashboard: configDashboardReducer,
-    wizard: wizardReducer
+    wizard: wizardReducer,
+    wallet: walletReducer
   },
   middleware: ( getDefaultMiddleware) => getDefaultMiddleware({
     thunk: {
